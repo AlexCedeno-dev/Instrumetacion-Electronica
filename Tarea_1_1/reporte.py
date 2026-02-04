@@ -13,11 +13,6 @@ def generar_reporte(df, estadisticas):
     # ===== PORTADA =====
     contenido.append(Paragraph("<b>Tarea 1.1 – Resultados</b>", estilos["Title"]))
     contenido.append(Spacer(1, 20))
-    contenido.append(Paragraph(
-        "Análisis estadístico de mediciones de voltaje",
-        estilos["Normal"]
-    ))
-    contenido.append(Spacer(1, 30))
 
     # ===== TABLA DE ERRORES =====
     contenido.append(Paragraph("<b>Error absoluto y relativo por hora</b>", estilos["Heading2"]))
@@ -36,9 +31,13 @@ def generar_reporte(df, estadisticas):
 
     tabla = Table(tabla_datos, repeatRows=1)
     tabla.setStyle(TableStyle([
-        ("GRID", (0,0), (-1,-1), 1, colors.black),
-        ("BACKGROUND", (0,0), (-1,0), colors.lightgrey),
-        ("ALIGN", (1,1), (-1,-1), "CENTER")
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.whitesmoke),
+
     ]))
 
     contenido.append(tabla)
