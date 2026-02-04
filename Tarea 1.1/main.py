@@ -1,20 +1,8 @@
-from Datos.lectura_de_datos import leer_datos_pdf
-from estadisticas import calcular_estadisticas
-from graficas import grafica_voltaje, histograma
-from reporte import generar_reporte
+from datos.lectura import leer_pdf
 
-ruta_pdf = "datos/Lecturas.pdf"
+RUTA_PDF = "datos/lecturas.pdf"
 
-df = leer_datos_pdf(ruta_pdf)
+df = leer_pdf(RUTA_PDF)
 
-print(df.columns)  # para ver columnas reales
-
-# Ajusta el índice si el nombre cambia
-voltajes = df.iloc[:, 2]
-
-resultados = calcular_estadisticas(voltajes)
-
-grafica_voltaje(voltajes)
-histograma(voltajes)
-
-generar_reporte(resultados)
+print(df.head())
+print(df.columns)
