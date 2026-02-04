@@ -2,9 +2,8 @@ import pandas as pd
 import numpy as np
 
 def limpiar_datos(df):
-    """
-    Limpia y prepara el DataFrame para análisis estadístico.
-    """
+    # Limpia y prepara el DataFrame para análisis estadístico.
+
     df_limpio = df.copy()
 
     df_limpio["Voltaje (Volts)"] = pd.to_numeric(
@@ -18,9 +17,8 @@ def limpiar_datos(df):
 
 
 def errores_por_hora(df):
-    """
-    Calcula error absoluto y relativo por hora.
-    """
+    #Calcula error absoluto y relativo por hora.
+
     df = df.copy()
 
     df["Error absoluto"] = abs(
@@ -35,9 +33,7 @@ def errores_por_hora(df):
 
 
 def estadisticas_completas(df):
-    """
-    Calcula estadísticas descriptivas completas del voltaje.
-    """
+    #Calcula estadísticas descriptivas completas del voltaje.
     x = df["Voltaje (Volts)"]
 
     media = x.mean()

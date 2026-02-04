@@ -4,7 +4,7 @@ from reportlab.lib.pagesizes import LETTER
 from reportlab.lib import colors
 
 def generar_reporte(df, estadisticas):
-    archivo = "Tarea1.1_Resultados.pdf"
+    archivo = "Reporte de Resultados.pdf"
 
     doc = SimpleDocTemplate(archivo, pagesize=LETTER)
     estilos = getSampleStyleSheet()

@@ -9,7 +9,7 @@ df = limpiar_datos(df)
 df = errores_por_hora(df)
 estadisticas = estadisticas_completas(df)
 
-# Gráficas (opcional, no van al PDF)
+# Gráficas 
 graficar_voltaje(df)
 histograma_voltaje(df)
 

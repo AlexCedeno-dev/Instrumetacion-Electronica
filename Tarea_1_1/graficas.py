@@ -1,9 +1,8 @@
 import matplotlib.pyplot as plt
 
 def graficar_voltaje(df):
-    """
-    Grafica Voltaje vs Hora.
-    """
+    #Grafica Voltaje vs Hora.
+    
     plt.figure()
     plt.plot(df["Hora"], df["Voltaje (Volts)"])
     plt.xlabel("Hora")
@@ -15,9 +14,8 @@ def graficar_voltaje(df):
 
 
 def histograma_voltaje(df):
-    """
-    Histograma de ocurrencia del voltaje.
-    """
+    #Histograma de ocurrencia del voltaje.
+
     plt.figure()
     plt.hist(df["Voltaje (Volts)"], bins=10)
     plt.xlabel("Voltaje (V)")
