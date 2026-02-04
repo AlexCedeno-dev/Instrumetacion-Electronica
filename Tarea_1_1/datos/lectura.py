@@ -9,7 +9,7 @@ def leer_pdf(ruta_pdf):
 
     df = tablas[0]
 
-    # Limpieza básica de columnas
+    # Limpiar nombres de columnas (saltos raros del PDF)
     df.columns = df.columns.str.replace('\r', '', regex=True)
 
     return df
