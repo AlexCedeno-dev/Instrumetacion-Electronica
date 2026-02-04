@@ -1,21 +1,20 @@
 from Datos.lectura_de_datos import leer_datos_pdf
 from estadisticas import calcular_estadisticas
-from graficas import grafica_voltaje_tiempo, histograma_voltajes
+from graficas import grafica_voltaje, histograma
 from reporte import generar_reporte
 
-# Leer datos
-ruta_pdf = "Datos/Lecturas_Problema_216.pdf"
+ruta_pdf = "datos/Lecturas.pdf"
+
 df = leer_datos_pdf(ruta_pdf)
 
-# Extraer columna de voltaje (ajusta el nombre si es necesario)
-voltajes = df["Voltaje (Volts)"]
+print(df.columns)  # para ver columnas reales
 
-# Estadísticas
+# Ajusta el índice si el nombre cambia
+voltajes = df.iloc[:, 2]
+
 resultados = calcular_estadisticas(voltajes)
 
-# Gráficas
-grafica_voltaje_tiempo(voltajes)
-histograma_voltajes(voltajes)
+grafica_voltaje(voltajes)
+histograma(voltajes)
 
-# Reporte
 generar_reporte(resultados)
