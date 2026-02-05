@@ -1,8 +1,9 @@
+#Libreria
 import matplotlib.pyplot as plt
 
 def graficar_voltaje(df):
     #Grafica Voltaje vs Hora.
-    
+
     plt.figure()
     plt.plot(df["Hora"], df["Voltaje (Volts)"])
     plt.xlabel("Hora")

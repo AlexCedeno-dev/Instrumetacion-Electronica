@@ -1,3 +1,4 @@
+#Librerias
 import pandas as pd
 import numpy as np
 
@@ -19,15 +20,12 @@ def limpiar_datos(df):
 def errores_por_hora(df):
     #Calcula error absoluto y relativo por hora.
 
+    VALOR_REAL = 127.0
+
     df = df.copy()
 
-    df["Error absoluto"] = abs(
-        df["Voltaje (Volts)"] - df["Ordenadoascendente"]
-    )
-
-    df["Error relativo"] = (
-        df["Error absoluto"] / df["Ordenadoascendente"]
-    )
+    df["Error absoluto"] = abs(df["Voltaje (Volts)"] - VALOR_REAL)
+    df["Error relativo"] = df["Error absoluto"] / VALOR_REAL
 
     return df
 

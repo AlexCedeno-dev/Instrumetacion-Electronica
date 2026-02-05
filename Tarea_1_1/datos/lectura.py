@@ -1,4 +1,5 @@
-import tabula
+#Librerias
+import tabula  
 import pandas as pd
 
 def leer_pdf(ruta_pdf):
