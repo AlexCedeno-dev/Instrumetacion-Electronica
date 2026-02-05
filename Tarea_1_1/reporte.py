@@ -1,59 +1,99 @@
-#Librerias
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Paragraph,
+    Spacer,
+    Image,
+    Table,
+    TableStyle
+)
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.pagesizes import LETTER
 from reportlab.lib import colors
+from reportlab.platypus import PageBreak
+
+
 
 def generar_reporte(df, estadisticas):
-    archivo = "Reporte de Resultados.pdf"
+    # Crear documento PDF
+    doc = SimpleDocTemplate("Reporte de Monitoreo de Voltaje del Regulador.pdf")
 
-    doc = SimpleDocTemplate(archivo, pagesize=LETTER)
     estilos = getSampleStyleSheet()
-    contenido = []
+    elementos = []
 
-    # ===== PORTADA =====
-    contenido.append(Paragraph("<b>Tarea 1.1 – Resultados</b>", estilos["Title"]))
-    contenido.append(Spacer(1, 20))
+    # ----------------- TÍTULO -----------------
+    elementos.append(Paragraph(
+        "Reporte de Monitoreo de Voltaje del Regulador",
+        estilos["Title"]
+    ))
+    elementos.append(Spacer(1, 20))
 
-    # ===== TABLA DE ERRORES =====
-    contenido.append(Paragraph("<b>Error absoluto y relativo por hora</b>", estilos["Heading2"]))
-    contenido.append(Spacer(1, 10))
+    # ----------------- TABLA DE DATOS -----------------
+    elementos.append(Paragraph(
+        "Datos de las Mediciones (muestra representativa)",
+        estilos["Heading2"]
+    ))
+    elementos.append(Spacer(1, 20))
 
     tabla_datos = [
-        ["Hora", "Error absoluto", "Error relativo"]
+        ["Hora", "Voltaje (V)", "Error absoluto (V)", "Error relativo"]
     ]
 
+    # Mostrar solo las primeras 10 mediciones
     for _, fila in df.iterrows():
         tabla_datos.append([
-            str(fila["Hora"]),
+            fila["Hora"],
+            f"{fila['Voltaje (Volts)']:.2f}",
             f"{fila['Error absoluto']:.4f}",
             f"{fila['Error relativo']:.4f}"
         ])
 
-    tabla = Table(tabla_datos, repeatRows=1)
+    tabla = Table(tabla_datos, colWidths=[80, 100, 120, 120])
+
     tabla.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
-        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.whitesmoke),
-
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
     ]))
 
-    contenido.append(tabla)
-    contenido.append(Spacer(1, 25))
+    elementos.append(tabla)
+    elementos.append(Spacer(1, 20))
+    elementos.append(PageBreak())
 
-    # ===== ESTADÍSTICOS =====
-    contenido.append(Paragraph("<b>Resultados estadísticos</b>", estilos["Heading2"]))
-    contenido.append(Spacer(1, 10))
+    # ----------------- ESTADÍSTICAS -----------------
+    elementos.append(Paragraph(
+        "Resultados Estadísticos",
+        estilos["Heading2"]
+    ))
+    elementos.append(Spacer(1, 12))
 
     for clave, valor in estadisticas.items():
-        contenido.append(Paragraph(
-            f"{clave}: {valor:.4f}",
-            estilos["Normal"]
-        ))
+        texto = f"{clave}: {valor:.4f}"
+        elementos.append(Paragraph(texto, estilos["Normal"]))
 
-    doc.build(contenido)
+    elementos.append(Spacer(1, 20))
+    elementos.append(PageBreak())
 
-    print(f"PDF generado correctamente: {archivo}")
+    # ----------------- GRÁFICAS -----------------
+    elementos.append(Paragraph(
+        "Gráficas",
+        estilos["Heading2"]
+    ))
+    elementos.append(Spacer(1, 12))
+
+    # Gráfica Voltaje vs Hora
+    elementos.append(Paragraph("Voltaje vs Hora", estilos["Normal"]))
+    elementos.append(Spacer(1, 8))
+    elementos.append(Image("voltaje_vs_hora.png", width=400, height=200))
+
+    elementos.append(Spacer(1, 20))
+
+    # Histograma
+    elementos.append(Paragraph("Histograma del Voltaje", estilos["Normal"]))
+    elementos.append(Spacer(1, 8))
+    elementos.append(Image("histograma_voltaje.png", width=400, height=200))
+
+    # ----------------- GENERAR PDF -----------------
+    doc.build(elementos)
+
+    print("PDF generado correctamente: Tarea1.1_Resultados.pdf")

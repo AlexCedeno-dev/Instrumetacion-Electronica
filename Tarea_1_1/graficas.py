@@ -1,26 +1,46 @@
-#Libreria
 import matplotlib.pyplot as plt
 
 def graficar_voltaje(df):
-    #Grafica Voltaje vs Hora.
+    plt.figure(figsize=(10, 5))
 
-    plt.figure()
-    plt.plot(df["Hora"], df["Voltaje (Volts)"])
+    plt.plot(
+        df["Hora"],
+        df["Voltaje (Volts)"],
+        linewidth=2,
+        marker="o",
+        markersize=4,
+        label="Voltaje medido"
+    )
+
+    plt.axhline(
+        y=127,
+        linestyle="--",
+        linewidth=2,
+        label="Voltaje nominal (127 V)"
+    )
+
+    plt.title("Voltaje del regulador vs Hora")
     plt.xlabel("Hora")
     plt.ylabel("Voltaje (V)")
-    plt.title("Voltaje vs Hora")
-    plt.xticks(rotation=45)
+    plt.xticks(df["Hora"][::4], rotation=45)
+    plt.grid(True, linestyle="--", alpha=0.5)
+    plt.legend()
     plt.tight_layout()
-    plt.show()
+
+    # 🔥 GUARDAR IMAGEN
+    plt.savefig("voltaje_vs_hora.png", dpi=300)
+    plt.close()
 
 
 def histograma_voltaje(df):
-    #Histograma de ocurrencia del voltaje.
+    plt.figure(figsize=(8, 5))
 
-    plt.figure()
     plt.hist(df["Voltaje (Volts)"], bins=10)
     plt.xlabel("Voltaje (V)")
     plt.ylabel("Frecuencia")
-    plt.title("Histograma del Voltaje")
+    plt.title("Histograma del voltaje")
     plt.tight_layout()
-    plt.show()
+
+    # 🔥 GUARDAR IMAGEN
+    plt.savefig("histograma_voltaje.png", dpi=300)
+    plt.close()
