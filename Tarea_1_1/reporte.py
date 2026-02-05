@@ -93,6 +93,13 @@ def generar_reporte(df, estadisticas):
     elementos.append(Spacer(1, 8))
     elementos.append(Image("histograma_voltaje.png", width=400, height=200))
 
+    elementos.append(Paragraph(
+        "Edgar Alejandro Cedeño Suarez - Jesus Abraham Robledo Lopez",
+        estilos["Normal"]
+    ))
+    elementos.append(Spacer(1, 20))
+    
+
     # ----------------- GENERAR PDF -----------------
     doc.build(elementos)
 
